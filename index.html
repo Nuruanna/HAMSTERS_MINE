@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#15100d">
+  <title>Hamster's Grammar Mine</title>
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <main class="showcase" aria-label="Hamster's Grammar Mine game showcase">
+    <div class="showcase__stage">
+      <img
+        class="showcase__background"
+        src="assets/shared/showcase/background/hub_background_main.png"
+        alt=""
+        aria-hidden="true"
+      >
+
+      <img
+        class="showcase__logo"
+        src="assets/shared/showcase/branding/hub_logo.png"
+        alt="Hamster's Grammar Mine"
+      >
+
+      <button class="showcase__profile" type="button" aria-label="Player profile">
+        <img
+          class="compact-profile__background"
+          src="assets/shared/showcase/profile/profile_panel_bg.png"
+          alt=""
+          aria-hidden="true"
+        >
+        <span class="compact-profile__content" aria-hidden="true">
+          <span class="compact-profile__avatar-wrap">
+            <img class="compact-profile__avatar" id="compact-avatar" src="" alt="">
+          </span>
+          <span class="compact-profile__name" id="compact-name"></span>
+          <span class="compact-profile__gems">
+            <img src="assets/shared/showcase/ui/ui_gem_icon.png" alt="">
+            <span id="compact-gems">0</span>
+          </span>
+          <img class="compact-profile__badge" id="compact-badge" src="" alt="">
+          <span class="compact-profile__progress-text" id="compact-progress-text"></span>
+          <span class="profile-progress compact-profile__progress">
+            <span class="profile-progress__fill" id="compact-progress-fill"></span>
+          </span>
+        </span>
+      </button>
+
+      <div class="hub-reward" id="hub-reward" aria-live="polite" aria-hidden="true">
+        <img src="assets/shared/showcase/ui/ui_gem_icon.png" alt="">
+        <strong id="hub-reward-amount">+0</strong>
+      </div>
+
+      <section class="showcase__games" aria-label="Games">
+        <a class="game-card game-card--featured" href="games/grammar-gold-rush/index.html">
+          <img
+            class="game-card__art"
+            src="assets/shared/showcase/cards/card_grammar_gold_rush.png"
+            alt="Grammar Gold Rush — featured game"
+          >
+        </a>
+
+        <a class="game-card game-card--mine-cart" href="games/mine-cart-express/index.html">
+          <img
+            class="game-card__art"
+            src="assets/shared/showcase/cards/card_mine_cart_express.png"
+            alt="Mine Cart Express — bonus game"
+          >
+        </a>
+
+        <a class="game-card game-card--haunted-cave" href="games/haunted-grammar-cave/index.html">
+          <img
+            class="game-card__art"
+            src="assets/shared/showcase/cards/card_haunted_grammar_cave.png"
+            alt="Haunted Grammar Cave — bonus game"
+          >
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <div class="welcome-layer" id="welcome-layer" hidden>
+    <div class="welcome-layer__backdrop" aria-hidden="true"></div>
+
+    <section
+      class="welcome-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="welcome-name-label"
+    >
+      <img
+        class="welcome-modal__background"
+        src="assets/shared/showcase/popups/modal_welcome_bg.png"
+        alt=""
+        aria-hidden="true"
+      >
+
+      <form class="welcome-form" id="welcome-form" novalidate>
+        <div class="welcome-form__name">
+          <label id="welcome-name-label" for="player-name">What's your name?</label>
+          <input
+            id="player-name"
+            name="playerName"
+            type="text"
+            maxlength="20"
+            autocomplete="name"
+            placeholder="Enter your name"
+            aria-describedby="player-name-help"
+            required
+          >
+          <p id="player-name-help">This will be shown to other miners.</p>
+        </div>
+
+        <fieldset class="avatar-picker">
+          <legend>Choose your miner!</legend>
+          <div class="avatar-picker__grid">
+            <button class="avatar-choice" type="button" data-avatar-id="rapper" aria-pressed="false">
+              <img src="assets/shared/showcase/avatars/avatar_rapper.png" alt="Rapper hamster">
+              <img class="avatar-choice__selected" src="assets/shared/showcase/ui/ui_avatar_selected.png" alt="" aria-hidden="true">
+            </button>
+            <button class="avatar-choice" type="button" data-avatar-id="old_timer" aria-pressed="false">
+              <img src="assets/shared/showcase/avatars/avatar_old_timer.png" alt="Old-timer hamster">
+              <img class="avatar-choice__selected" src="assets/shared/showcase/ui/ui_avatar_selected.png" alt="" aria-hidden="true">
+            </button>
+            <button class="avatar-choice" type="button" data-avatar-id="fashion_girl" aria-pressed="false">
+              <img src="assets/shared/showcase/avatars/avatar_fashion_girl.png" alt="Fashion hamster girl">
+              <img class="avatar-choice__selected" src="assets/shared/showcase/ui/ui_avatar_selected.png" alt="" aria-hidden="true">
+            </button>
+            <button class="avatar-choice" type="button" data-avatar-id="explorer_girl" aria-pressed="false">
+              <img src="assets/shared/showcase/avatars/avatar_explorer_girl.png" alt="Explorer hamster girl">
+              <img class="avatar-choice__selected" src="assets/shared/showcase/ui/ui_avatar_selected.png" alt="" aria-hidden="true">
+            </button>
+            <button class="avatar-choice" type="button" data-avatar-id="miner" aria-pressed="false">
+              <img src="assets/shared/showcase/avatars/avatar_miner.png" alt="Miner hamster">
+              <img class="avatar-choice__selected" src="assets/shared/showcase/ui/ui_avatar_selected.png" alt="" aria-hidden="true">
+            </button>
+            <button class="avatar-choice" type="button" data-avatar-id="extreme" aria-pressed="false">
+              <img src="assets/shared/showcase/avatars/avatar_extreme.png" alt="Extreme-sports hamster">
+              <img class="avatar-choice__selected" src="assets/shared/showcase/ui/ui_avatar_selected.png" alt="" aria-hidden="true">
+            </button>
+          </div>
+          <p>Pick an avatar to represent you in the mine.</p>
+        </fieldset>
+
+        <div class="welcome-form__actions">
+          <button class="start-mining" id="start-mining" type="submit" disabled>Start Mining!</button>
+          <p>Fill in your name and choose a miner<br>to start your adventure!</p>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div class="profile-layer" id="profile-layer" hidden>
+    <div class="profile-layer__backdrop" aria-hidden="true"></div>
+
+    <section
+      class="profile-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="profile-modal-title"
+    >
+      <h2 class="visually-hidden" id="profile-modal-title">My Miner Profile</h2>
+      <img
+        class="profile-modal__background"
+        src="assets/shared/showcase/popups/modal_profile_bg.png"
+        alt=""
+        aria-hidden="true"
+      >
+
+      <button class="profile-modal__close" id="profile-modal-close" type="button" aria-label="Close profile">
+        <img src="assets/shared/showcase/ui/ui_close_button.png" alt="">
+      </button>
+
+      <div class="profile-summary">
+        <div class="profile-summary__avatar-wrap">
+          <img class="profile-summary__avatar" id="modal-avatar" src="" alt="">
+        </div>
+        <div class="profile-summary__name" id="modal-name"></div>
+        <div class="profile-summary__gems">
+          <img src="assets/shared/showcase/ui/ui_gem_icon.png" alt="">
+          <span id="modal-gems">0</span>
+        </div>
+        <img class="profile-summary__badge" id="modal-badge" src="" alt="">
+        <div class="profile-summary__progress-text" id="modal-progress-text"></div>
+        <div class="profile-progress profile-summary__progress">
+          <span class="profile-progress__fill" id="modal-progress-fill"></span>
+        </div>
+      </div>
+
+      <div class="profile-stats" aria-label="Player statistics">
+        <div class="profile-stat">
+          <img src="assets/shared/showcase/popups/modal_profile_icon1.png" alt="" aria-hidden="true">
+          <span>Games played</span>
+          <strong id="stat-games-played">0</strong>
+        </div>
+        <div class="profile-stat">
+          <img src="assets/shared/showcase/popups/modal_profile_icon2.png" alt="" aria-hidden="true">
+          <span>Correct answers</span>
+          <strong id="stat-correct-answers">0</strong>
+        </div>
+        <div class="profile-stat">
+          <img src="assets/shared/showcase/popups/modal_profile_icon3.png" alt="" aria-hidden="true">
+          <span>Ghosts defeated</span>
+          <strong id="stat-ghosts-defeated">0</strong>
+        </div>
+        <div class="profile-stat">
+          <img src="assets/shared/showcase/popups/modal_profile_icon4.png" alt="" aria-hidden="true">
+          <span>Best Gold Rush</span>
+          <strong><span id="stat-best-gold-rush">0</span> <small>gems</small></strong>
+        </div>
+      </div>
+
+      <section class="recent-sessions" aria-labelledby="recent-sessions-title">
+        <h3 id="recent-sessions-title">Recent Sessions</h3>
+        <p class="recent-sessions__empty" id="recent-sessions-empty">No mining sessions yet.</p>
+        <div class="recent-sessions__rows" id="recent-sessions-rows"></div>
+      </section>
+
+      <button class="profile-modal__back" id="profile-modal-back" type="button">
+        <span class="visually-hidden">Back to Camp</span>
+        <img src="assets/shared/showcase/popups/modal_profile_button.png" alt="" aria-hidden="true">
+      </button>
+
+      <button class="profile-modal__reset" id="profile-reset" type="button">Reset profile</button>
+    </section>
+  </div>
+
+  <div class="rank-up-layer" id="rank-up-layer" hidden>
+    <div class="rank-up-layer__backdrop" aria-hidden="true"></div>
+    <section class="rank-up-modal" role="dialog" aria-modal="true" aria-labelledby="rank-up-name">
+      <img
+        class="rank-up-modal__background"
+        src="assets/shared/showcase/popups/modal_rank_up_bg.png"
+        alt=""
+        aria-hidden="true"
+      >
+      <div class="rank-up-modal__content">
+        <img class="rank-up-modal__badge" id="rank-up-badge" src="" alt="">
+        <h2 id="rank-up-name"></h2>
+        <p>Outstanding mining!</p>
+        <button class="rank-up-modal__continue" id="rank-up-continue" type="button">Awesome!</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/site.js" defer></script>
+</body>
+</html>

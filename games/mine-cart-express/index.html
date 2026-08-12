@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mine Cart Express</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <section id="gameStage" class="stage" aria-label="Mine Cart Express game">
+      <img id="bgImage" class="bg" src="assets/game/bg_do_does.png" alt="" draggable="false" />
+
+      <header class="hud">
+        <div class="hud-left">
+          <div class="hud-badge diamond-badge">
+            <img src="assets/ui/diamond_badge.png" alt="Diamonds" draggable="false" />
+            <span id="diamondCount">0</span>
+          </div>
+          <div class="hud-badge progress-badge">
+            <img src="assets/ui/progress_badge.png" alt="Progress" draggable="false" />
+            <span id="progressCount">0/10</span>
+          </div>
+        </div>
+        <div class="hud-right">
+          <button id="soundBtn" class="image-btn top-btn" aria-label="Toggle sound">
+            <img id="soundIcon" src="assets/ui/music_on.png" alt="" draggable="false" />
+          </button>
+          <button id="helpBtn" class="image-btn top-btn" aria-label="How to play">
+            <img src="assets/ui/help.png" alt="" draggable="false" />
+          </button>
+          <button id="pauseBtn" class="image-btn top-btn" aria-label="Pause">
+            <img src="assets/ui/pause.png" alt="" draggable="false" />
+          </button>
+          <button id="exitBtn" class="image-btn top-btn" aria-label="Exit">
+            <img src="assets/ui/close.png" alt="" draggable="false" />
+          </button>
+        </div>
+      </header>
+
+      <img class="logo" src="assets/game/logo.png" alt="Mine Cart Express" draggable="false" />
+
+      <div id="questionWrap" class="question-wrap hidden">
+        <img src="assets/game/question_panel_compact.png" alt="" draggable="false" />
+        <div id="questionText" class="question-text">___ you like pizza?</div>
+      </div>
+
+      <div id="answerFeedback" class="answer-feedback" aria-live="polite"></div>
+
+      <button id="upperArrow" class="arrow-button upper hidden" aria-label="Choose upper tunnel">
+        <img src="assets/game/arrow.png" alt="" draggable="false" />
+      </button>
+      <button id="lowerArrow" class="arrow-button lower hidden" aria-label="Choose lower tunnel">
+        <img src="assets/game/arrow.png" alt="" draggable="false" />
+      </button>
+
+      <img id="cart" class="cart hidden" src="assets/game/cart_hamster.png" alt="Hamster in mine cart" draggable="false" />
+
+      <div id="startOverlay" class="overlay show">
+        <div class="start-card">
+          <button id="startBtn" class="image-btn start-btn" aria-label="Start game">
+            <img class="start-image" src="assets/ui/start_button.png" alt="Start" draggable="false" />
+          </button>
+          <div class="start-small-buttons">
+            <button id="backBtn" class="image-btn menu-btn" aria-label="Back">
+              <img src="assets/ui/back_button.png" alt="Back" draggable="false" />
+            </button>
+            <button id="howBtn" class="image-btn menu-btn" aria-label="How to play">
+              <img src="assets/ui/how_to_play_button.png" alt="How to play" draggable="false" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="topicOverlay" class="overlay">
+        <div class="popup topic-popup">
+          <img class="popup-bg" src="assets/ui/topic_modal.png" alt="Choose a topic" draggable="false" />
+          <button class="image-btn popup-close" data-close="topic" aria-label="Close">
+            <img src="assets/ui/close.png" alt="Close" draggable="false" />
+          </button>
+          <div class="topic-list">
+            <button data-topic="presentSimple" class="topic-btn">PRESENT SIMPLE</button>
+            <button data-topic="presentContinuous" class="topic-btn">PRESENT CONTINUOUS</button>
+            <button data-topic="thereIsAre" class="topic-btn">THERE IS / THERE ARE</button>
+            <button data-topic="pastWasWere" class="topic-btn">PAST SIMPLE (WAS / WERE)</button>
+          </div>
+          <button id="letsGoBtn" class="image-btn lets-go-btn disabled" aria-label="Let's go">
+            <img src="assets/ui/lets_go_button.png" alt="Let's go" draggable="false" />
+          </button>
+        </div>
+      </div>
+
+      <div id="helpOverlay" class="overlay">
+        <div class="popup help-popup">
+          <img class="popup-bg" src="assets/ui/how_to_play_modal.png" alt="How to play" draggable="false" />
+          <button class="image-btn popup-close" data-close="help" aria-label="Close">
+            <img src="assets/ui/close.png" alt="Close" draggable="false" />
+          </button>
+          <div class="help-text">
+            <p><strong>1.</strong> Read the question with the missing first word.</p>
+            <p><strong>2.</strong> Click the glowing arrow for the correct tunnel.</p>
+            <p><strong>3.</strong> The cart rolls toward the switch and waits there if you don’t answer yet.</p>
+            <p><strong>4.</strong> Each correct answer gives you <strong>1 diamond</strong>.</p>
+            <p><strong>5.</strong> Finish all <strong>10 questions</strong> to complete the ride.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="pauseOverlay" class="overlay">
+        <div class="pause-box">
+          <div class="pause-title">PAUSED</div>
+          <button id="resumeBtn" class="resume-btn">RESUME</button>
+        </div>
+      </div>
+
+      <div id="resultOverlay" class="overlay">
+        <div class="popup result-popup">
+          <img class="popup-bg" src="assets/ui/result_modal.png" alt="Results" draggable="false" />
+          <div class="result-text-block">
+            <div class="result-title-small">You collected</div>
+            <div id="resultScore" class="result-score">0 / 10</div>
+            <div class="result-title-small">diamonds!</div>
+          </div>
+          <div class="result-actions">
+            <button id="playAgainBtn" class="image-btn result-btn" aria-label="Play again">
+              <img src="assets/ui/play_again.png" alt="Play again" draggable="false" />
+            </button>
+            <button id="campBtn" class="image-btn result-btn" aria-label="Back to camp">
+              <img src="assets/ui/back_to_camp.png" alt="Back to camp" draggable="false" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

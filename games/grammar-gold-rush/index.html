@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grammar Gold Rush</title>
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+  <main class="viewport" aria-label="Grammar Gold Rush">
+    <div class="game-stage" id="gameStage">
+      <img class="sky" src="assets/background/sky_background.png" alt="">
+
+      <div class="world-root" id="worldRoot">
+        <img class="world" src="assets/background/world_background.png" alt="">
+        <div class="mine-grid" id="mineGrid" aria-hidden="true"></div>
+        <div class="hamster-layer" aria-hidden="true">
+          <div class="hamster-actor" id="hamsterActor">
+            <div class="hamster-sprite" id="hamsterSprite"></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="start-menu" id="startMenu" aria-label="Main menu">
+        <button class="art-button start-button" id="startButton" type="button" aria-label="Start">
+          <img src="assets/ui/start/start_button.png" alt="">
+        </button>
+        <div class="start-actions">
+          <a class="art-button small-button" href="../../index.html" aria-label="Back to showcase">
+            <img src="assets/ui/start/back_button.png" alt="">
+          </a>
+          <button class="art-button small-button how-button" data-open-help type="button" aria-label="How to play">
+            <img src="assets/ui/start/how_to_play_button.png" alt="">
+          </button>
+        </div>
+      </section>
+
+      <header class="hud" aria-label="Game controls">
+        <div class="hud-left">
+          <div class="counter timer"><img src="assets/ui/hud/timer_panel_bg.png" alt=""><span>02:00</span></div>
+          <div class="counter gems"><img src="assets/ui/hud/gems_panel_bg.png" alt=""><span>0</span></div>
+        </div>
+        <img class="game-logo" src="assets/ui/hud/logo_grammar_gold_rush.png" alt="Grammar Gold Rush">
+        <nav class="hud-actions" aria-label="Game options">
+          <button class="art-button hud-button" id="musicButton" type="button" aria-label="Turn music off" aria-pressed="true"><img src="assets/ui/hud/button_music_on.png" alt=""></button>
+          <button class="art-button hud-button" data-open-help type="button" aria-label="Help"><img src="assets/ui/hud/button_help.png" alt=""></button>
+          <button class="art-button hud-button" id="pauseButton" type="button" aria-label="Pause" aria-pressed="false"><img src="assets/ui/hud/button_pause.png" alt=""></button>
+          <a class="art-button hud-button" href="../../index.html" aria-label="Close game"><img src="assets/ui/hud/button_close.png" alt=""></a>
+        </nav>
+      </header>
+
+      <div class="modal" id="topicModal" hidden>
+        <div class="modal-card topic-card" role="dialog" aria-modal="true" aria-labelledby="topicTitle">
+          <img class="modal-art" src="assets/ui/start/topic_select_popup.png" alt="">
+          <div class="topic-content">
+            <h1 id="topicTitle" class="sr-only">Choose a topic</h1>
+            <div class="topics" role="radiogroup" aria-label="Grammar topic">
+              <button class="topic-option" type="button" role="radio" aria-checked="false" data-topic="Present Simple">Present Simple</button>
+              <button class="topic-option" type="button" role="radio" aria-checked="false" data-topic="Present Continuous">Present Continuous</button>
+              <button class="topic-option" type="button" role="radio" aria-checked="false" data-topic="Past Simple">Past Simple</button>
+              <button class="topic-option" type="button" role="radio" aria-checked="false" data-topic="Future Forms">Future Forms</button>
+            </div>
+            <button class="art-button confirm-topic" id="confirmTopic" type="button" disabled aria-label="Let's mine">
+              <img src="assets/ui/start/Lets_mine_button.png" alt="">
+            </button>
+          </div>
+          <button class="art-button popup-close topic-close" id="closeTopic" type="button" aria-label="Back to Start screen">
+            <img src="assets/ui/hud/button_close.png" alt="">
+          </button>
+        </div>
+      </div>
+
+      <div class="modal" id="helpModal" hidden>
+        <div class="modal-card help-card" role="dialog" aria-modal="true" aria-label="How to play">
+          <img class="modal-art" src="assets/ui/popups/popup_how_to_play_bg.png" alt="">
+          <div class="help-copy">
+            <section><h2>DIG</h2><p>Break blocks to explore the mine.</p></section>
+            <section><h2>MOVE</h2><p>Use the arrow keys or WASD to move through open tunnels.</p></section>
+            <section><h2>ANSWER</h2><p>Stone blocks hide grammar challenges.<br>Answer correctly to collect the treasure inside.</p></section>
+            <section><h2>COLLECT GEMS</h2><p>Walk onto discovered gems to pick them up.<br>Different gems are worth different amounts.</p></section>
+            <section><h2>FIND TREASURE</h2><p>Walk onto a treasure chest to open it.<br>Some chests contain gems...<br>and some may hide a ghost!</p></section>
+            <section><h2>GO DEEPER</h2><p>Find the way down to reach the next mine level.</p></section>
+            <section class="wide"><h2>BE QUICK!</h2><p>You have 2 minutes to collect as many gems as you can.</p></section>
+          </div>
+          <button class="art-button popup-close help-close" id="closeHelp" type="button" aria-label="Close help">
+            <img src="assets/ui/hud/button_close.png" alt="">
+          </button>
+        </div>
+      </div>
+
+      <div class="modal" id="grammarModal" hidden>
+        <div class="modal-card challenge-card" role="dialog" aria-modal="true" aria-label="Grammar challenge">
+          <img class="modal-art" src="assets/ui/popups/popup_grammar_bg.png" alt="">
+          <div class="challenge-time" id="grammarTime">10</div>
+          <div class="challenge-content">
+            <h2 id="grammarQuestion"></h2>
+            <div class="challenge-options" id="grammarOptions"></div>
+            <form class="typed-answer" id="typedAnswer" hidden>
+              <input id="grammarInput" autocomplete="off" aria-label="Type your answer">
+              <button type="submit">ANSWER</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="ghostModal" hidden>
+        <div class="modal-card ghost-card" role="dialog" aria-modal="true" aria-label="Ghost challenge">
+          <img class="modal-art" src="assets/ui/popups/popup_ghost_bg.png" alt="">
+          <div class="ghost-time" id="ghostTime">5</div>
+          <div class="ghost-question"><h2 id="ghostQuestion"></h2><div class="challenge-options" id="ghostOptions"></div></div>
+        </div>
+      </div>
+
+      <div class="modal" id="eventModal" hidden>
+        <div class="modal-card event-card" role="dialog" aria-modal="true" aria-label="Chest result">
+          <img class="modal-art" id="eventArt" src="assets/ui/popups/popup_treasure_bg.png" alt="">
+          <div class="event-copy" id="eventCopy"></div>
+          <button class="art-button popup-close event-close" id="eventClose" type="button" aria-label="Close">
+            <img src="assets/ui/hud/button_close.png" alt="">
+          </button>
+        </div>
+      </div>
+
+      <div class="modal" id="endModal" hidden>
+        <div class="results-card" role="dialog" aria-modal="true" aria-label="Game results">
+          <img class="modal-art" src="assets/ui/popups/popup_results_bg.png" alt="">
+          <dl class="results-stats">
+            <div><dt>Gems</dt><dd id="resultGems">0</dd></div>
+            <div><dt>Blocks mined</dt><dd id="resultBlocks">0</dd></div>
+            <div><dt>Grammar</dt><dd id="resultGrammar">0 / 0</dd></div>
+            <div><dt>Ghosts defeated</dt><dd id="resultGhosts">0</dd></div>
+          </dl>
+          <button class="art-button results-button results-play" id="resultsPlayAgain" type="button" aria-label="Play again"><img src="assets/ui/popups/popup_results_button_play_again.png" alt=""></button>
+          <a class="art-button results-button results-back" href="../../index.html" aria-label="Back to camp"><img src="assets/ui/popups/popup_results_button_back.png" alt=""></a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="js/map.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/hamster.js"></script>
+  <script src="js/mining.js"></script>
+  <script src="../../docs/grammar-gold-rush/grammar_gold_rush_questions.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/gameplay.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

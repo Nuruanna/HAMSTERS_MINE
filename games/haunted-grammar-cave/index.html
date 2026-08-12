@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Haunted Grammar Cave</title>
+  <link rel="stylesheet" href="game.css" />
+</head>
+<body>
+  <main id="stage" class="stage" aria-label="Haunted Grammar Cave game">
+    <div class="background-glow" aria-hidden="true"></div>
+
+    <!-- START SCREEN -->
+    <section id="startScreen" class="screen start-screen is-active" aria-label="Start screen">
+      <div class="start-title-wrap">
+        <img class="logo-img start-logo" src="assets/logo.png" alt="Haunted Grammar Cave" draggable="false" />
+      </div>
+
+      <div class="start-controls">
+        <button id="startBtn" class="img-button start-btn" aria-label="Start game">
+          <img src="assets/start.png" alt="Start" draggable="false" />
+        </button>
+        <div class="start-subcontrols">
+          <button id="startBackBtn" class="img-button wide-small" aria-label="Back to camp">
+            <img src="assets/back.png" alt="Back" draggable="false" />
+          </button>
+          <button id="startHelpBtn" class="img-button wide-small" aria-label="How to play">
+            <img src="assets/how-to-play.png" alt="How to play" draggable="false" />
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOPIC CHOICE -->
+    <div id="topicModal" class="modal topic-modal" role="dialog" aria-modal="true" aria-labelledby="topicTitle">
+      <div class="topic-panel-wrap">
+        <img class="topic-panel-art" src="assets/topic-panel.png" alt="Choose a topic" draggable="false" />
+        <button id="topicClose" class="img-button topic-close-btn" aria-label="Close topic choice">
+          <img src="assets/close.png" alt="Close" draggable="false" />
+        </button>
+        <div class="topic-copy">
+          <h2 id="topicTitle" class="sr-only">Choose a topic</h2>
+          <div class="topic-grid">
+            <button class="topic-btn green" type="button" data-topic="present_simple">PRESENT SIMPLE</button>
+            <button class="topic-btn blue" type="button" data-topic="present_continuous">PRESENT CONTINUOUS</button>
+            <button class="topic-btn purple" type="button" data-topic="there_is_are">THERE IS / THERE ARE</button>
+            <button class="topic-btn orange" type="button" data-topic="past_simple_was_were">PAST SIMPLE (WAS / WERE)</button>
+          </div>
+          <button id="topicGoBtn" class="img-button lets-go-btn is-disabled" type="button" aria-label="Let's go" disabled>
+            <img src="assets/lets-go.png" alt="Let's go" draggable="false" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <section id="gameScreen" class="screen game-screen" aria-label="Game">
+      <header class="hud">
+        <div class="hud-left">
+          <div class="hud-panel gem-panel" aria-label="Gems earned">
+            <img src="assets/gems-panel.png" alt="" draggable="false" />
+            <span id="gemCount" class="hud-value gem-value">0</span>
+          </div>
+          <div class="hud-panel task-panel" aria-label="Task number">
+            <img src="assets/questions-panel.png" alt="" draggable="false" />
+            <span id="taskCount" class="hud-value task-value">1/5</span>
+          </div>
+        </div>
+
+        <div class="game-logo-wrap" aria-hidden="true">
+          <img class="logo-img game-logo-img" src="assets/logo.png" alt="Haunted Grammar Cave" draggable="false" />
+        </div>
+
+        <div class="hud-right">
+          <button id="musicBtn" class="img-button square-btn" aria-label="Music on">
+            <img id="musicIcon" src="assets/music-on.png" alt="Music" draggable="false" />
+          </button>
+          <button id="helpBtn" class="img-button square-btn" aria-label="How to play">
+            <img src="assets/help.png" alt="Help" draggable="false" />
+          </button>
+          <button id="pauseBtn" class="img-button square-btn" aria-label="Pause">
+            <img src="assets/pause.png" alt="Pause" draggable="false" />
+          </button>
+          <button id="closeBtn" class="img-button square-btn" aria-label="Back to camp">
+            <img src="assets/close.png" alt="Close" draggable="false" />
+          </button>
+        </div>
+      </header>
+
+      <div id="playfield" class="playfield" aria-live="polite">
+        <div id="wordLayer" class="word-layer"></div>
+      </div>
+      <div id="darkness" class="darkness" aria-hidden="true"></div>
+      <div id="flashlight" class="flashlight" aria-hidden="true">
+        <img src="assets/flashlight.png" alt="" draggable="false" />
+      </div>
+      <div id="ghostScare" class="ghost-scare" aria-hidden="true">
+        <img src="assets/ghost.png" alt="" draggable="false" />
+        <div class="ghost-text">BOO!</div>
+      </div>
+      <div id="roundMessage" class="round-message" aria-hidden="true"></div>
+
+      <div class="sentence-wrap" aria-label="Built sentence">
+        <img class="sentence-art" src="assets/sentence-bar.png" alt="" draggable="false" />
+        <div id="sentenceText" class="sentence-text"></div>
+      </div>
+    </section>
+
+    <!-- HOW TO PLAY MODAL -->
+    <div id="helpModal" class="modal help-modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <div class="help-panel">
+        <img class="help-panel-art" src="assets/how-to-play-panel.png" alt="How to play" draggable="false" />
+        <button id="helpClose" class="img-button modal-close-btn" aria-label="Close instructions">
+          <img src="assets/close.png" alt="Close" draggable="false" />
+        </button>
+        <div class="help-copy">
+          <h2 id="helpTitle" class="sr-only">How to Play</h2>
+          <ul>
+            <li><strong>Choose a topic:</strong> pick one grammar topic before you start.</li>
+            <li><strong>Move the flashlight:</strong> explore the dark cave with your light.</li>
+            <li><strong>Find the word stones:</strong> hidden words appear inside the beam.</li>
+            <li><strong>Build the sentence:</strong> click the words in the correct order.</li>
+            <li><strong>Watch the stone bar:</strong> the sentence grows at the bottom of the screen.</li>
+            <li><strong>Beware of ghosts:</strong> choose a wrong word and a ghost will appear.</li>
+            <li><strong>Win gems:</strong> complete 5 rounds and collect your reward.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAUSE -->
+    <div id="pauseOverlay" class="pause-overlay" role="dialog" aria-modal="true" aria-label="Paused">
+      <div class="pause-card">
+        <div class="pause-title">PAUSED</div>
+        <button id="resumeBtn" class="code-button">CONTINUE</button>
+      </div>
+    </div>
+
+    <!-- FINAL RESULTS -->
+    <div id="resultsModal" class="modal results-modal" role="dialog" aria-modal="true" aria-label="Level completed">
+      <div class="results-card">
+        <img src="assets/results-bg.png" alt="Level completed" draggable="false" />
+        <div id="resultsText" class="results-text"></div>
+      </div>
+      <div class="results-buttons">
+        <button id="playAgainBtn" class="img-button results-btn" aria-label="Play again">
+          <img src="assets/play-again.png" alt="Play again" draggable="false" />
+        </button>
+        <button id="resultsBackBtn" class="img-button results-btn" aria-label="Back to camp">
+          <img src="assets/back-to-camp.png" alt="Back to camp" draggable="false" />
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>

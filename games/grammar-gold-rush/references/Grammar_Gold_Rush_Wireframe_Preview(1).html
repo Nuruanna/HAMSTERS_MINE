@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Grammar Gold Rush — Wireframe Preview v0.2</title>
+<style>
+  :root{--ink:#27221e;--paper:#f3efe8;--line:#8e8478;--dark:#24211f;--mid:#cfc7bc;--open:#a98662;--revealed:#ded6ca;--accent:#d99a2b}
+  *{box-sizing:border-box} body{margin:0;background:#171513;color:var(--ink);font:15px/1.35 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+  .toolbar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#211e1b;border-bottom:1px solid #463f39}
+  .toolbar button{border:1px solid #766b60;background:#38332e;color:#fff;border-radius:8px;padding:8px 12px;cursor:pointer}.toolbar button:hover{background:#4a433c}
+  .wrap{padding:18px}.note{max-width:1280px;margin:0 auto 12px;color:#ddd}.stage{position:relative;width:min(1280px,100%);aspect-ratio:16/9;margin:auto;background:#ece7df;overflow:hidden;border:2px solid #5a5149}
+  .sky{position:absolute;inset:0;background:linear-gradient(#ddd 0 56%,#e7e2da 56%)}
+  .hud{position:absolute;left:0;right:0;top:0;height:150px;z-index:8}.panel{position:absolute;border:3px solid #62574c;background:#faf7f2;border-radius:15px;height:70px;display:flex;align-items:center;justify-content:center;font-weight:800}
+  .timer{left:20px;top:18px;width:195px}.gems{left:228px;top:18px;width:190px}.logo{position:absolute;top:15px;left:50%;transform:translateX(-50%);width:370px;height:100px;border:3px solid #62574c;border-radius:18px;background:#faf7f2;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:26px;text-align:center}
+  .ctrls{position:absolute;right:18px;top:18px;display:flex;gap:10px}.ctrl{width:68px;height:68px;border:3px solid #62574c;border-radius:16px;background:#faf7f2;display:grid;place-items:center;font-weight:900;font-size:24px}
+  .world{position:absolute;inset:0;z-index:2}.grass{position:absolute;left:0;right:0;top:156px;height:32px;background:#777;border-top:4px solid #555}.hole{position:absolute;top:156px;left:56%;width:88px;height:32px;background:#ece7df}
+  .earth{position:absolute;left:0;right:0;top:188px;bottom:0;background:#a98662}
+  .grid{position:absolute;left:0;top:129px;width:1280px;height:590.77px;display:grid;grid-template-columns:repeat(13,1fr);grid-template-rows:repeat(6,1fr);z-index:4}
+  .cell{border:1px solid #756a60;display:grid;place-items:center;font-size:13px;font-weight:800}.hidden{background:#2b2826;color:#aaa}.revealed{background:#ddd5ca}.open{background:transparent}.gold{background:#cbb899}.chest{background:#bca274}.exit{background:#6f5e4f;color:#fff}.ham{font-size:28px}
+  .start-world{transform:translateY(410px)}
+  .start-menu{position:absolute;z-index:10;left:50%;top:185px;transform:translateX(-50%);width:520px;text-align:center}.startbig{margin:auto;width:390px;height:125px;border:4px solid #65594d;border-radius:26px;background:#faf7f2;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:900;position:relative}.hamtop{position:absolute;top:-65px;left:50%;transform:translateX(-50%);font-size:58px}.rowbuttons{display:flex;justify-content:center;gap:18px;margin-top:20px}.smallbtn{width:180px;height:58px;border:3px solid #65594d;border-radius:16px;background:#faf7f2;display:grid;place-items:center;font-weight:800}
+  .backdrop{position:absolute;inset:0;background:#0007;z-index:11}.modal{position:absolute;z-index:12;background:#f8f3ea;border:5px solid #65594d;border-radius:24px;box-shadow:0 12px 40px #0005}.modal h2{margin:0;padding:14px;text-align:center;border-bottom:3px solid #8f8275}.topic{left:260px;top:95px;width:760px;height:520px}.topicgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:45px 70px}.topiccard{height:92px;border:3px solid #8e8478;border-radius:16px;display:grid;place-items:center;background:#fff}.confirm{width:260px;height:58px;margin:10px auto;border:3px solid #65594d;border-radius:16px;display:grid;place-items:center;font-weight:900;background:#eee}
+  .grammar{left:140px;top:90px;width:1000px;height:560px}.timerbadge{position:absolute;right:35px;top:18px;width:110px;height:56px;border:3px solid #766b60;border-radius:14px;display:grid;place-items:center;font-size:28px;font-weight:900}.q{margin:85px 120px 24px;font-size:30px;text-align:center}.answers{width:650px;margin:auto;display:grid;gap:14px}.ans{height:56px;border:2px solid #8e8478;border-radius:14px;background:#fff;display:grid;place-items:center;font-size:22px}
+  .ghost{left:90px;top:105px;width:1100px;height:520px}.ghostcols{display:grid;grid-template-columns:45% 55%;height:calc(100% - 66px)}.ghostart{display:grid;place-items:center;font-size:92px;border-right:3px solid #8e8478}.ghostq{padding:55px 45px}.ghostq .ans{margin-top:12px;width:100%}
+  .results{left:365px;top:25px;width:550px;height:670px}.chestart{text-align:center;font-size:72px;margin-top:5px}.stats{margin:18px 70px;padding:24px;border:2px dashed #a89b8d;font-size:18px;line-height:1.8}.resbtn{margin:10px auto;width:340px;height:58px;border:3px solid #65594d;border-radius:16px;display:grid;place-items:center;font-weight:900}.red{background:#d8c9c9}
+  .screen{display:none}.screen.active{display:block}
+  .legend{position:absolute;right:8px;bottom:4px;z-index:9;background:#fffddd;padding:5px 8px;font-size:11px;border:1px solid #9c9185}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <button data-screen="start">Start</button><button data-screen="topic">Topic</button><button data-screen="game">Gameplay</button><button data-screen="grammar">Grammar</button><button data-screen="ghost">Ghost</button><button data-screen="results">Results</button>
+</div>
+<div class="wrap">
+<div class="note">Wireframe preview v0.2 — 1280×720 logical viewport, 13×6 grid, fixed sky + movable continuous world background.</div>
+<div class="stage">
+  <div class="sky"></div>
+  <div class="screen active" id="start">
+    <div class="world start-world"><div class="grass"></div><div class="hole"></div><div class="earth"></div></div>
+    <div class="logo">GRAMMAR<br>GOLD RUSH</div>
+    <div class="start-menu"><div class="startbig"><span class="hamtop">🐹</span>START</div><div class="rowbuttons"><div class="smallbtn">HOW TO PLAY</div><div class="smallbtn">BACK</div></div></div>
+  </div>
+  <div class="screen" id="topic">
+    <div class="world start-world"><div class="grass"></div><div class="hole"></div><div class="earth"></div></div><div class="logo">GRAMMAR<br>GOLD RUSH</div><div class="backdrop"></div>
+    <div class="modal topic"><h2>CHOOSE A TOPIC</h2><div class="topicgrid"><div class="topiccard">Present Simple</div><div class="topiccard">Present Continuous</div><div class="topiccard">Past Simple</div><div class="topiccard">Future Forms</div></div><div class="confirm">LET'S MINE!</div></div>
+  </div>
+  <div class="screen" id="game"></div>
+  <div class="screen" id="grammar"><div class="backdrop"></div><div class="modal grammar"><h2>GRAMMAR CHALLENGE</h2><div class="timerbadge">10</div><div class="q">Tom ___ to school every day.</div><div class="answers"><div class="ans">go</div><div class="ans">goes</div><div class="ans">going</div></div></div></div>
+  <div class="screen" id="ghost"><div class="backdrop"></div><div class="modal ghost"><h2>A GHOST!</h2><div class="timerbadge">5</div><div class="ghostcols"><div class="ghostart">👻<br>🧰</div><div class="ghostq"><h3>Which sentence is correct?</h3><div class="ans">A. She don't like spiders.</div><div class="ans">B. She doesn't like spiders.</div></div></div></div></div>
+  <div class="screen" id="results"><div class="backdrop"></div><div class="modal results"><h2>LEVEL COMPLETED</h2><div class="chestart">💎🧰💎</div><div class="stats">GEMS COLLECTED&nbsp;&nbsp;&nbsp;27<br>BLOCKS MINED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;34<br>GRAMMAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9 / 11<br>GHOSTS DEFEATED&nbsp;&nbsp;&nbsp;2<br>DEEPEST LEVEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3</div><div class="resbtn">PLAY AGAIN</div><div class="resbtn red">BACK TO CAMP</div></div></div>
+  <div class="hud" id="hud"><div class="panel timer">⏱ &nbsp; 01:28</div><div class="panel gems">💎 &nbsp; 14</div><div class="logo">GRAMMAR<br>GOLD RUSH</div><div class="ctrls"><div class="ctrl">♪</div><div class="ctrl">?</div><div class="ctrl">Ⅱ</div><div class="ctrl">×</div></div></div>
+  <div class="world" id="gameworld"><div class="grass"></div><div class="hole"></div><div class="earth"></div><div class="grid" id="grid"></div></div>
+  <div class="legend">Open cells = continuous world background showing through</div>
+</div>
+</div>
+<script>
+const grid=document.getElementById('grid');
+const types=['hidden','hidden','hidden','revealed','revealed','gold','open','open','revealed','hidden','hidden','hidden','hidden','hidden'];
+for(let r=0;r<6;r++)for(let c=0;c<14;c++){
+  const d=document.createElement('div'); let t=types[c];
+  if(r>0 && c>2 && c<11 && Math.random()>.35)t=Math.random()>.45?'open':'revealed';
+  if(r===3&&c===7){t='open';d.textContent='🐹';d.classList.add('ham')}
+  if(r===4&&c===10){t='exit';d.textContent='↓ EXIT'}
+  if(r===2&&c===9){t='chest';d.textContent='CHEST'}
+  d.classList.add('cell',t); if(!d.textContent)d.textContent=t==='hidden'?'?':t==='open'?'':t==='gold'?'GOLD':'BLOCK'; grid.appendChild(d)
+}
+const hud=document.getElementById('hud'), gameworld=document.getElementById('gameworld'), legend=document.querySelector('.legend');
+function show(name){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(name).classList.add('active');
+  const gameplay=['game','grammar','ghost','results'].includes(name);hud.style.display=gameplay?'block':'none';gameworld.style.display=gameplay?'block':'none';legend.style.display=name==='game'?'block':'none';
+}
+document.querySelectorAll('[data-screen]').forEach(b=>b.onclick=()=>show(b.dataset.screen));show('start');
+</script>
+</body>
+</html>
